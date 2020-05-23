@@ -1,0 +1,67 @@
+<template>
+    <div class="slds-card slds-has-bottom-magne">
+        <div class="slds-p-around_medium">
+            <div class="slds-text-heading_large">
+            	<div class="slds-text-align_center">
+                    Employees Management App
+                </div>
+            </div>
+        </div>
+    </div>
+    <lightning-input type="text" value={empId} label="Enter the ID" onchange={idChanged}></lightning-input>
+    <lightning-input type="text" value={empName} label="Enter the Name" onchange={nameChanged}></lightning-input>
+    <lightning-input type="number" value={empSal} label="Enter the Salary" onchange={salChanged}></lightning-input>
+    <lightning-button label="Add Employee" onclick={addEmployee}></lightning-button>
+    <div><br/></div>
+    <div class="slds-p-around-small">
+    <div class="slds-grid slds-wrap"> 
+    <template for:each={employees} for:item="emp" for:index="index">
+        <div key = {unique} class="slds-col slds-size_1-of-3 slds-p-around-small">
+        <lightning-card>
+        <b>ID : </b>{emp.Empoyee_ID__c}<br/>
+        <b>Name : </b>{emp.Name}<br/>
+        <b>Salary : </b>{emp.Employee_Salary__c}<br/>
+        <lightning-button label="Delete" value={index}
+         onclick={delEmp}></lightning-button>
+        &nbsp;
+        <lightning-button label="Update" value={index} onclick={updEmp}></lightning-button>
+        </lightning-card>
+        </div>
+    </template>
+    </div>
+    </div>
+
+    <template if:true={showUpd}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+
+                <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                    <lightning-icon icon-name="utility:close"
+                        onclick={closeUpd}
+                       alternative-text="close"
+                       variant="inverse"
+                       size="small" >
+                    </lightning-icon>
+                    <span class="slds-assistive-text">Close</span>
+                 </button> 
+                 <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Update Employee Details</h2>
+                </header>
+
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning-input type="text" value={updId} label="Enter the ID" onchange={updIdChanged}></lightning-input>
+                    <lightning-input type="text" value={updName} label="Enter the Name" onchange={updNameChanged}></lightning-input>
+                    <lightning-input type="text" value={updSal} label="Enter the Salary" onchange={updSalChanged}></lightning-input>
+        <!-- <lightning-button variant="success" label="Update" onclick={updEmployee} ></lightning-button> -->
+                </div>
+
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={updEmployee}>Update</button>
+                    <button class="slds-button slds-button_neutral" onclick={closeUpd}>Cancel</button>
+                </footer>               
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+</template>
